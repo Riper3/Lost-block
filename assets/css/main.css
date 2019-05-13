@@ -4,6 +4,7 @@ body {
 }
 
 #main-div {
+  position: relative;
   width: 100%;
   min-height: 100%;
   background-color: red;
@@ -11,6 +12,7 @@ body {
 }
 
 #character-div {
+  position: absolute;
   width: 40px;
   height: 40px;
   background-color: green;

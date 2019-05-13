@@ -1,0 +1,17 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+#main-div {
+  width: 100%;
+  min-height: 100%;
+  background-color: red;
+  overflow: auto;
+}
+
+#character-div {
+  width: 40px;
+  height: 40px;
+  background-color: green;
+}

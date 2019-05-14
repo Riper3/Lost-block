@@ -10,50 +10,58 @@ $(window).on('load', function() {
   centerMaindiv();
 });
 
+var speed = 20;
+
 function moveTop(element) {
-  element.css("top", element.position().top - 20);
+  var position = element.position();
+  if(position.top > 0) {
+    element.css("top", position.top - speed);
+  }
+
 }
 
 function moveBot(element) {
-  element.css("top", element.position().top + 20);
+  var position = element.position();
+  if(position.top < $(window).height() - 60) {
+    element.css("top", position.top + speed);
+  }
 }
 
 function moveLeft(element) {
-  element.css("left", element.position().left - 20);
+  var position = element.position();
+  if(position.left > 0) {
+    element.css("left", position.left - speed);
+  }
 }
 
 function moveRight(element) {
-  element.css("left", element.position().left + 20);
+  var position = element.position();
+  if(position.left < $(window).width() - 60) {
+    element.css("left", position.left + speed);
+  }
 }
 
-document.onkeydown = moveBlock;
-
-function moveBlock(e) {
-
-  e = e || window.event;
-
+$(document).keydown(function(e){
   var character = $("#character-div");
   var position = character.position();
 
-  if (position.top > 0 && e.keyCode == '38' || e.keyCode == '87' && position.top > 0) {
+  if (e.keyCode == '38' || e.keyCode == '87') {
     moveTop(character);
   }
-  else if (position.top < $(window).height() - 60 && e.keyCode == '40' || e.keyCode == '83'
-           && position.top < $(window).height() - 50) {
+  else if (e.keyCode == '40' || e.keyCode == '83') {
     moveBot(character);
   }
-  else if (position.left > 0 && e.keyCode == '37' || e.keyCode == '65' && position.left > 0) {
+  else if (e.keyCode == '37' || e.keyCode == '65') {
     moveLeft(character);
   }
-  else if (position.left < $(window).width() - 60 && e.keyCode == '39' || e.keyCode == '68'
-           && position.left < $(window).width() - 50) {
+  else if (e.keyCode == '39' || e.keyCode == '68') {
     moveRight(character);
   }
 
   if(typeof character.collision(".bad-div")[0] !== 'undefined') {
     endGame();
   }
-}
+});
 
 function newDiv() {
   var div = $("<div class='bad-div'></div>");

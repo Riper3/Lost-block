@@ -7,7 +7,7 @@ body {
   position: relative;
   width: 100%;
   min-height: 100%;
-  background-color: red;
+  background-color: black;
   overflow: auto;
 }
 
@@ -15,7 +15,13 @@ body {
   position: absolute;
   width: 40px;
   height: 40px;
-  top: 40%;
-  left: 45%;
-  background-color: green;
+  background-color: purple;
+  border-radius: 20px;
+}
+
+.bad-div {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: white;
 }

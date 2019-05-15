@@ -11,6 +11,7 @@ $(window).on('load', function() {
 });
 
 var speed = 20;
+var keyspeed = 50;
 
 function moveTop(element) {
   var position = element.position();
@@ -41,25 +42,56 @@ function moveRight(element) {
   }
 }
 
+var interval;
+var repeatkey = 0;
+var changekey = 0;
+
 $(document).keydown(function(e){
   var character = $("#character-div");
-  var position = character.position();
 
-  if (e.keyCode == '38' || e.keyCode == '87') {
-    moveTop(character);
+  if(repeatkey != e.keyCode && repeatkey != 0) {
+    repeatkey = 0;
+    changekey = 1;
+    clearInterval(interval);
   }
-  else if (e.keyCode == '40' || e.keyCode == '83') {
-    moveBot(character);
-  }
-  else if (e.keyCode == '37' || e.keyCode == '65') {
-    moveLeft(character);
-  }
-  else if (e.keyCode == '39' || e.keyCode == '68') {
-    moveRight(character);
+
+  if(repeatkey == 0) {
+
+  repeatkey = e.keyCode;
+
+    if (e.keyCode == '38' || e.keyCode == '87') {
+      interval = setInterval(function() {
+              moveTop(character);
+          }, keyspeed);
+    }
+    else if (e.keyCode == '40' || e.keyCode == '83') {
+      interval = setInterval(function() {
+              moveBot(character);
+          }, keyspeed);
+    }
+    else if (e.keyCode == '37' || e.keyCode == '65') {
+      interval = setInterval(function() {
+              moveLeft(character);
+          }, keyspeed);
+    }
+    else if (e.keyCode == '39' || e.keyCode == '68') {
+      interval = setInterval(function() {
+                  moveRight(character);
+          }, keyspeed);
+    }
   }
 
   if(typeof character.collision(".bad-div")[0] !== 'undefined') {
     endGame();
+  }
+})
+.keyup(function(e){
+  if(changekey != 1) {
+  repeatkey = 0;
+  clearInterval(interval);
+  }
+  else {
+    changekey = 0;
   }
 });
 
@@ -76,7 +108,7 @@ function endGame() {
 
 setInterval(function(){
    newDiv();
-}, 300);
+}, 200);
 
 setInterval(function(){
    $(".bad-div").each(function(){

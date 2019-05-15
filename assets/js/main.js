@@ -4,6 +4,7 @@ var left = Math.floor(($(window).width() / 2) / 20) * 20;
 
 $("#character-div").css('top', top);
 $("#character-div").css('left', left);
+$("#character-div").show();
 }
 
 $(window).on('load', function() {
@@ -57,7 +58,7 @@ $(document).keydown(function(e){
 
   if(repeatkey == 0) {
 
-  repeatkey = e.keyCode;
+    repeatkey = e.keyCode;
 
     if (e.keyCode == '38' || e.keyCode == '87') {
       interval = setInterval(function() {
@@ -87,8 +88,8 @@ $(document).keydown(function(e){
 })
 .keyup(function(e){
   if(changekey != 1) {
-  repeatkey = 0;
-  clearInterval(interval);
+    repeatkey = 0;
+    clearInterval(interval);
   }
   else {
     changekey = 0;
@@ -103,6 +104,7 @@ function newDiv() {
 
 function endGame() {
   $(".bad-div").remove();
+  $("#character-div").hide();
   centerMaindiv();
 }
 

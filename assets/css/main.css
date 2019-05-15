@@ -12,6 +12,7 @@ body {
 }
 
 #character-div {
+  display: none;
   position: absolute;
   width: 40px;
   height: 40px;

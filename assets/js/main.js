@@ -13,6 +13,7 @@ $(window).on('load', function() {
 
 var speed = 20;
 var keyspeed = 50;
+var backgroundcolor = "rgb(255, 255, 255)";
 
 function moveTop(element) {
   var position = element.position();
@@ -82,7 +83,7 @@ $(document).keydown(function(e){
     }
   }
 
-  if(typeof character.collision(".bad-div")[0] !== 'undefined') {
+  if(!!character.collision(".bad-div")[0]) {
     endGame();
   }
 })
@@ -97,9 +98,10 @@ $(document).keydown(function(e){
 });
 
 function newDiv() {
-  var div = $("<div class='bad-div'></div>");
-  div.css("top",  Math.floor(Math.random()*($(window).height() - 40) / 20) * 20);
-  div.appendTo("#main-div");
+  $("<div class='bad-div'></div>")
+  .css("top",  Math.floor(Math.random()*($(window).height() - 40) / 20) * 20)
+  .css("background", backgroundcolor)
+  .appendTo("#main-div");
 }
 
 function endGame() {
@@ -109,8 +111,18 @@ function endGame() {
 }
 
 setInterval(function(){
+  let colornumbers = [];
+
+  for (let x = 0; x < 3; x++) {
+    colornumbers[x] = Math.floor((Math.random() * 255) + 20);
+  }
+
+  backgroundcolor = "rgb("+colornumbers.join()+")";
+}, 3000);
+
+setInterval(function(){
    newDiv();
-}, 200);
+}, 100);
 
 setInterval(function(){
    $(".bad-div").each(function(){
@@ -120,9 +132,9 @@ setInterval(function(){
 
      moveRight($(this));
 
-     if(typeof $(this).collision("#character-div")[0] !== 'undefined') {
+     if(!!$(this).collision("#character-div")[0]) {
        endGame();
      }
 
    });
-}, 100);
+}, 50);
